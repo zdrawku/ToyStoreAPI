@@ -1,45 +1,38 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
 using ToyStoreAPI.Models;
 
-namespace ToyStoreAPI.Services
+public class ToyService
 {
-    public class ToyService
+    private readonly List<Toy> _toys;
+
+    public ToyService()
     {
-        private List<Toy> _toys;
+        string jsonData = File.ReadAllText("Data/toys.json");
+        _toys = JsonConvert.DeserializeObject<List<Toy>>(jsonData);
+    }
 
-        // Constructor to load the data from the JSON file
-        public ToyService()
-        {
-            // Assuming the toys.json file is in the Data folder in the project
-            var jsonData = File.ReadAllText("Data/toys.json");
-            _toys = JsonConvert.DeserializeObject<List<Toy>>(jsonData);
-        }
+    public IEnumerable<Toy> GetAllToys()
+    {
+        return _toys;
+    }
 
-        public List<Toy> GetAllToys()
-        {
-            return _toys;
-        }
+    public IEnumerable<Toy> GetToysByCategory(int categoryId)
+    {
+        return _toys.Where(toy => toy.CategoryID == categoryId);
+    }
 
-        public List<Toy> GetToysByCategory(Category category)
-        {
-            return _toys.FindAll(t => t.Category == category);
-        }
+    public IEnumerable<Toy> GetToysInPriceRange(decimal minPrice, decimal maxPrice)
+    {
+        return _toys.Where(toy => toy.Price >= minPrice && toy.Price <= maxPrice);
+    }
 
-        public List<Toy> GetToysByPriceRange(decimal from, decimal to)
-        {
-            return _toys.FindAll(t => t.Price >= from && t.Price <= to);
-        }
+    public Toy GetToyById(int id)
+    {
+        return _toys.FirstOrDefault(toy => toy.Id == id);
+    }
 
-        public List<Toy> GetToysByName(string name)
-        {
-            return _toys.FindAll(t => t.Name.ToLower().Contains(name.ToLower()));
-        }
-
-        public Toy GetToyById(int id)
-        {
-            return _toys.Find(t => t.Id == id);
-        }
+    public IEnumerable<Toy> GetToysByName(string name)
+    {
+        return _toys.Where(toy => toy.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
     }
 }

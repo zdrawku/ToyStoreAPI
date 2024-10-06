@@ -1,61 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ToyStoreAPI.Models;
-using ToyStoreAPI.Services;
 
-namespace ToyStoreAPI.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class ToysController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ToysController : ControllerBase
+    private readonly ToyService _toyService;
+
+    public ToysController(ToyService toyService)
     {
-        private readonly ToyService _toyService;
+        _toyService = toyService;
+    }
 
-        public ToysController(ToyService toyService)
-        {
-            _toyService = toyService;
-        }
+    [HttpGet]
+    public IActionResult GetAllToys()
+    {
+        var toys = _toyService.GetAllToys();
+        return Ok(toys);
+    }
 
-        // Get all toys
-        [HttpGet]
-        public ActionResult<List<Toy>> GetAllToys()
-        {
-            return Ok(_toyService.GetAllToys());
-        }
+    [HttpGet("category/{categoryId}")]
+    public IActionResult GetToysByCategory(int categoryId)
+    {
+        var toys = _toyService.GetToysByCategory(categoryId);
+        return Ok(toys);
+    }
 
-        // Get toys by category
-        [HttpGet("category/{category}")]
-        public ActionResult<List<Toy>> GetToysByCategory(Category category)
-        {
-            var filteredToys = _toyService.GetToysByCategory(category);
-            return Ok(filteredToys);
-        }
+    [HttpGet("price")]
+    public IActionResult GetToysInPriceRange([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
+    {
+        var toys = _toyService.GetToysInPriceRange(minPrice, maxPrice);
+        return Ok(toys);
+    }
 
-        // Get toys within a price range
-        [HttpGet("price")]
-        public ActionResult<List<Toy>> GetToysByPriceRange([FromQuery] decimal from, [FromQuery] decimal to)
+    [HttpGet("{id}")]
+    public IActionResult GetToyById(int id)
+    {
+        var toy = _toyService.GetToyById(id);
+        if (toy == null)
         {
-            var filteredToys = _toyService.GetToysByPriceRange(from, to);
-            return Ok(filteredToys);
+            return NotFound();
         }
+        return Ok(toy);
+    }
 
-        // Get toys by name (case insensitive)
-        [HttpGet("name/{name}")]
-        public ActionResult<List<Toy>> GetToysByName(string name)
-        {
-            var filteredToys = _toyService.GetToysByName(name);
-            return Ok(filteredToys);
-        }
-
-        // Get toy by ID
-        [HttpGet("{id}")]
-        public ActionResult<Toy> GetToyById(int id)
-        {
-            var toy = _toyService.GetToyById(id);
-            if (toy == null)
-            {
-                return NotFound(new { message = "Toy not found" });
-            }
-            return Ok(toy);
-        }
+    [HttpGet("getToyByName")]
+    public IActionResult GetToysByName([FromQuery] string name)
+    {
+        var toys = _toyService.GetToysByName(name);
+        return Ok(toys);
     }
 }
