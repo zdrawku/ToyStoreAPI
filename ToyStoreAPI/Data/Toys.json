@@ -1,0 +1,290 @@
+[
+  {
+    "CategoryID": 1,
+    "id": 101,
+    "name": "Baby Rattle",
+    "price": 10
+  },
+  {
+    "CategoryID": 1,
+    "id": 102,
+    "name": "Soft Plush Toy",
+    "price": 20
+  },
+  {
+    "CategoryID": 1,
+    "id": 103,
+    "name": "Stacking Rings",
+    "price": 15
+  },
+  {
+    "CategoryID": 1,
+    "id": 104,
+    "name": "Crib Mobile",
+    "price": 25
+  },
+  {
+    "CategoryID": 1,
+    "id": 105,
+    "name": "Teething Toy",
+    "price": 8
+  },
+  {
+    "CategoryID": 1,
+    "id": 106,
+    "name": "Playmat",
+    "price": 30
+  },
+  {
+    "CategoryID": 1,
+    "id": 107,
+    "name": "Baby Mirror",
+    "price": 12
+  },
+  {
+    "CategoryID": 1,
+    "id": 108,
+    "name": "Soft Blocks",
+    "price": 18
+  },
+  {
+    "CategoryID": 1,
+    "id": 109,
+    "name": "Activity Gym",
+    "price": 40
+  },
+  {
+    "CategoryID": 1,
+    "id": 110,
+    "name": "Rattle Socks",
+    "price": 5
+  },
+  {
+    "CategoryID": 1,
+    "id": 111,
+    "name": "Cloth Book",
+    "price": 10
+  },
+  {
+    "CategoryID": 1,
+    "id": 112,
+    "name": "Musical Toy",
+    "price": 22
+  },
+  {
+    "CategoryID": 2,
+    "id": 201,
+    "name": "Building Blocks",
+    "price": 30
+  },
+  {
+    "CategoryID": 2,
+    "id": 202,
+    "name": "Toy Car",
+    "price": 15
+  },
+  {
+    "CategoryID": 2,
+    "id": 203,
+    "name": "Stuffed Animal",
+    "price": 20
+  },
+  {
+    "CategoryID": 2,
+    "id": 204,
+    "name": "Ride-On Toy",
+    "price": 45
+  },
+  {
+    "CategoryID": 2,
+    "id": 205,
+    "name": "Wooden Puzzle",
+    "price": 12
+  },
+  {
+    "CategoryID": 2,
+    "id": 206,
+    "name": "Shape Sorter",
+    "price": 18
+  },
+  {
+    "CategoryID": 2,
+    "id": 207,
+    "name": "Toy Drum",
+    "price": 25
+  },
+  {
+    "CategoryID": 2,
+    "id": 208,
+    "name": "Pull-Along Toy",
+    "price": 14
+  },
+  {
+    "CategoryID": 2,
+    "id": 209,
+    "name": "Bath Toys",
+    "price": 10
+  },
+  {
+    "CategoryID": 2,
+    "id": 210,
+    "name": "Toy Phone",
+    "price": 12
+  },
+  {
+    "CategoryID": 2,
+    "id": 211,
+    "name": "Toy Train",
+    "price": 40
+  },
+  {
+    "CategoryID": 2,
+    "id": 212,
+    "name": "Coloring Set",
+    "price": 8
+  },
+  {
+    "CategoryID": 3,
+    "id": 301,
+    "name": "Action Figure",
+    "price": 25
+  },
+  {
+    "CategoryID": 3,
+    "id": 302,
+    "name": "Puzzle Set",
+    "price": 10
+  },
+  {
+    "CategoryID": 3,
+    "id": 303,
+    "name": "Doll House",
+    "price": 60
+  },
+  {
+    "CategoryID": 3,
+    "id": 304,
+    "name": "Toy Kitchen",
+    "price": 80
+  },
+  {
+    "CategoryID": 3,
+    "id": 305,
+    "name": "Toy Doctor Kit",
+    "price": 30
+  },
+  {
+    "CategoryID": 3,
+    "id": 306,
+    "name": "Building Set",
+    "price": 35
+  },
+  {
+    "CategoryID": 3,
+    "id": 307,
+    "name": "Play Tent",
+    "price": 50
+  },
+  {
+    "CategoryID": 3,
+    "id": 308,
+    "name": "Bicycle",
+    "price": 100
+  },
+  {
+    "CategoryID": 3,
+    "id": 309,
+    "name": "Toy Robot",
+    "price": 40
+  },
+  {
+    "CategoryID": 3,
+    "id": 310,
+    "name": "Toy Microscope",
+    "price": 25
+  },
+  {
+    "CategoryID": 3,
+    "id": 311,
+    "name": "Craft Set",
+    "price": 15
+  },
+  {
+    "CategoryID": 3,
+    "id": 312,
+    "name": "Toy Camera",
+    "price": 20
+  },
+  {
+    "CategoryID": 4,
+    "id": 401,
+    "name": "Board Game",
+    "price": 35
+  },
+  {
+    "CategoryID": 4,
+    "id": 402,
+    "name": "RC Car",
+    "price": 50
+  },
+  {
+    "CategoryID": 4,
+    "id": 403,
+    "name": "Lego Set",
+    "price": 75
+  },
+  {
+    "CategoryID": 4,
+    "id": 404,
+    "name": "Model Airplane",
+    "price": 55
+  },
+  {
+    "CategoryID": 4,
+    "id": 405,
+    "name": "Science Kit",
+    "price": 40
+  },
+  {
+    "CategoryID": 4,
+    "id": 406,
+    "name": "Skateboard",
+    "price": 60
+  },
+  {
+    "CategoryID": 4,
+    "id": 407,
+    "name": "Drone",
+    "price": 120
+  },
+  {
+    "CategoryID": 4,
+    "id": 408,
+    "name": "Chess Set",
+    "price": 30
+  },
+  {
+    "CategoryID": 4,
+    "id": 409,
+    "name": "Electronic Kit",
+    "price": 90
+  },
+  {
+    "CategoryID": 4,
+    "id": 410,
+    "name": "Model Train Set",
+    "price": 85
+  },
+  {
+    "CategoryID": 4,
+    "id": 411,
+    "name": "Basketball Set",
+    "price": 45
+  },
+  {
+    "CategoryID": 4,
+    "id": 412,
+    "name": "Scooter",
+    "price": 70
+  }
+]
