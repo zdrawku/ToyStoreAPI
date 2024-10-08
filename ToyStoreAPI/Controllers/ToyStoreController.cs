@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ToyStoreAPI.Models;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -11,8 +12,8 @@ public class ToysController : ControllerBase
         _toyService = toyService;
     }
 
-    [HttpGet]
-    public IActionResult GetAllToys()
+    [HttpGet("allToys")]
+    public ActionResult<IEnumerable<Toy>> GetAllToys()
     {
         var toys = _toyService.GetAllToys();
         return Ok(toys);
