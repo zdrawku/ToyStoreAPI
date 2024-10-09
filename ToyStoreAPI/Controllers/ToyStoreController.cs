@@ -12,42 +12,87 @@ public class ToysController : ControllerBase
         _toyService = toyService;
     }
 
+    // Get all toys
     [HttpGet("allToys")]
-    public ActionResult<IEnumerable<Toy>> GetAllToys()
+    public ActionResult<IEnumerable<ToyModel>> GetAllToys()
     {
         var toys = _toyService.GetAllToys();
         return Ok(toys);
     }
 
-    [HttpGet("category/{categoryId}")]
-    public IActionResult GetToysByCategory(int categoryId)
+    // Get all categories
+    [HttpGet("categories")]
+    public ActionResult<IEnumerable<CategoryModel>> GetAllCategories()
     {
-        var toys = _toyService.GetToysByCategory(categoryId);
+        var categories = new List<CategoryModel>
+        {
+            new CategoryModel { Id = 1, Name = "Infant" },
+            new CategoryModel { Id = 2, Name = "Toddler" },
+            new CategoryModel { Id = 3, Name = "Preschool" },
+            new CategoryModel { Id = 4, Name = "Older Kids" }
+        };
+
+        return Ok(categories);
+    }
+
+    // Get toys by category (categoryId is optional)
+    [HttpGet("toysByCategoryID")]
+    public ActionResult<IEnumerable<ToyModel>> GetToysByCategory([FromQuery] int? categoryId)
+    {
+        IEnumerable<ToyModel> toys;
+
+        if (categoryId.HasValue && categoryId.Value != 0)
+        {
+            toys = _toyService.GetToysByCategory(categoryId.Value);
+        }
+        else
+        {
+            // If no categoryId is provided, return all toys
+            toys = _toyService.GetAllToys();
+        }
+
+        if (toys == null || !toys.Any())
+        {
+            return NotFound("No toys found.");
+        }
+
         return Ok(toys);
     }
 
+
+    // Get toys in a specific price range
     [HttpGet("price")]
-    public IActionResult GetToysInPriceRange([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
+    public ActionResult<IEnumerable<ToyModel>> GetToysInPriceRange([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
     {
         var toys = _toyService.GetToysInPriceRange(minPrice, maxPrice);
+        if (toys == null || !toys.Any())
+        {
+            return NotFound($"No toys found in the price range from {minPrice} to {maxPrice}.");
+        }
         return Ok(toys);
     }
 
+    // Get toy by ID
     [HttpGet("{id}")]
-    public IActionResult GetToyById(int id)
+    public ActionResult<ToyModel> GetToyById(int id)
     {
         var toy = _toyService.GetToyById(id);
         if (toy == null)
         {
-            return NotFound();
+            return NotFound($"No toy found with ID {id}.");
         }
         return Ok(toy);
     }
 
+    // Get toys by name
     [HttpGet("getToyByName")]
-    public IActionResult GetToysByName([FromQuery] string name)
+    public ActionResult<IEnumerable<ToyModel>> GetToysByName([FromQuery] string name)
     {
         var toys = _toyService.GetToysByName(name);
+        if (toys == null || !toys.Any())
+        {
+            return NotFound($"No toys found with the name containing '{name}'.");
+        }
         return Ok(toys);
     }
 }

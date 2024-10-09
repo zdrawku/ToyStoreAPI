@@ -1,6 +1,6 @@
 ﻿namespace ToyStoreAPI.Models
 {
-    public class Toy
+    public class ToyModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

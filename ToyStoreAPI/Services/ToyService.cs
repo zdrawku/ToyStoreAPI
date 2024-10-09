@@ -3,35 +3,35 @@ using ToyStoreAPI.Models;
 
 public class ToyService
 {
-    private readonly List<Toy> _toys;
+    private readonly List<ToyModel> _toys;
 
     public ToyService()
     {
         string jsonData = File.ReadAllText("Data/toys.json");
-        _toys = JsonConvert.DeserializeObject<List<Toy>>(jsonData);
+        _toys = JsonConvert.DeserializeObject<List<ToyModel>>(jsonData);
     }
 
-    public IEnumerable<Toy> GetAllToys()
+    public IEnumerable<ToyModel> GetAllToys()
     {
         return _toys;
     }
 
-    public IEnumerable<Toy> GetToysByCategory(int categoryId)
+    public IEnumerable<ToyModel> GetToysByCategory(int categoryId)
     {
         return _toys.Where(toy => toy.CategoryID == categoryId);
     }
 
-    public IEnumerable<Toy> GetToysInPriceRange(decimal minPrice, decimal maxPrice)
+    public IEnumerable<ToyModel> GetToysInPriceRange(decimal minPrice, decimal maxPrice)
     {
         return _toys.Where(toy => toy.Price >= minPrice && toy.Price <= maxPrice);
     }
 
-    public Toy GetToyById(int id)
+    public ToyModel GetToyById(int id)
     {
         return _toys.FirstOrDefault(toy => toy.Id == id);
     }
 
-    public IEnumerable<Toy> GetToysByName(string name)
+    public IEnumerable<ToyModel> GetToysByName(string name)
     {
         return _toys.Where(toy => toy.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
     }
