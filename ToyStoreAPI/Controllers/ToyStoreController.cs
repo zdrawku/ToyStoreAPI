@@ -26,10 +26,10 @@ public class ToysController : ControllerBase
     {
         var categories = new List<CategoryModel>
         {
-            new CategoryModel { Id = 1, Name = "Infant" },
-            new CategoryModel { Id = 2, Name = "Toddler" },
-            new CategoryModel { Id = 3, Name = "Preschool" },
-            new CategoryModel { Id = 4, Name = "Older Kids" }
+            new CategoryModel { Id = 1, Name = "Infant", Description= "0-12 months" },
+            new CategoryModel { Id = 2, Name = "Toddler", Description= "1-3 years" },
+            new CategoryModel { Id = 3, Name = "Preschool", Description= "3-5 years" },
+            new CategoryModel { Id = 4, Name = "Older Kids", Description= "5+ years" }
         };
 
         return Ok(categories);
