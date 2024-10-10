@@ -49,24 +49,25 @@ public class ToyService
         return toy;
     }
 
-    public ToyModel Upsert(ToyModel toy, int id = 0)
+    public ToyModel Update(ToyModel toy)
     {
-        if (id == 0)
+        var toyExists = _dbContext.Toys.Any(x => x.Id == toy.Id);
+        if (!toyExists)
         {
-            _dbContext.Toys.Add(toy);
+            return null;
         }
-        else
-        {
-            var toyExists = _dbContext.Toys.Any(x => x.Id == id);
-            if (!toyExists)
-            {
-                return null;
-            }
 
-            toy.Id = id;
-            _dbContext.Toys.Update(toy);
-        }
+        _dbContext.Toys.Update(toy);
         _dbContext.SaveChanges();
         return toy;
     }
+    
+    public ToyModel Create(ToyModel toy)
+    {
+        toy.Id = 0;
+        _dbContext.Toys.Add(toy);
+        _dbContext.SaveChanges();
+        return toy;
+    }
+
 }
