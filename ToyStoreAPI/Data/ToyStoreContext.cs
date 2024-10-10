@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using ToyStoreAPI.Models;
 
 namespace ToyStoreAPI.Data
@@ -16,7 +18,7 @@ namespace ToyStoreAPI.Data
         {
             modelBuilder.Entity<ToyModel>()
                .Property(a => a.Id)
-              .ValueGeneratedOnAdd();
+               .HasValueGenerator((_, __) => new IdentityColumnGenerator(101));
         }
     }
 }
