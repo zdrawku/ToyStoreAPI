@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using ToyStoreAPI.Models;
 
 namespace ToyStoreAPI.Data

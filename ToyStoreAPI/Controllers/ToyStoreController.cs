@@ -35,7 +35,7 @@ namespace ToyStoreAPI.Controllers
         [HttpGet("categories")]
         public ActionResult<IEnumerable<CategoryModel>> GetAllCategories()
         {
-            var categories =CategoriesHelper.GetCategories();
+            var categories = CategoriesHelper.GetCategories();
 
             return Ok(categories);
         }

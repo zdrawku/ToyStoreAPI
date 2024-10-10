@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ToyStoreAPI.Data;
 using ToyStoreAPI.Models;
-using static ToyStoreAPI.Data.ToyStoreContext;
 
 namespace ToyStoreAPI.Helpers
 {
