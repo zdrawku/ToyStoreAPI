@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ToyStoreAPI.Data;
 using ToyStoreAPI.Models;
 
 namespace ToyStoreAPI.Controllers
@@ -34,13 +35,7 @@ namespace ToyStoreAPI.Controllers
         [HttpGet("categories")]
         public ActionResult<IEnumerable<CategoryModel>> GetAllCategories()
         {
-            var categories = new List<CategoryModel>
-            {
-                new CategoryModel { Id = 1, Name = "Infant", Description= "0-12 months" },
-                new CategoryModel { Id = 2, Name = "Toddler", Description= "1-3 years" },
-                new CategoryModel { Id = 3, Name = "Preschool", Description= "3-5 years" },
-                new CategoryModel { Id = 4, Name = "Older Kids", Description= "5+ years" }
-            };
+            var categories =CategoriesDataHelper.GetCategories();
 
             return Ok(categories);
         }
@@ -129,5 +124,69 @@ namespace ToyStoreAPI.Controllers
             }
             return Ok(toys);
         }
+
+        /// <summary>
+        /// Retrieves toys that contain the specified name (or part of it).
+        /// </summary>
+        /// <param name="id">The unique ID of the toy.</param>
+        /// <returns>List of toys matching the name criteria.</returns>
+        /// <response code="200">Returns the list of toys matching the name.</response>
+        /// <response code="404">No toys found with the specified name.</response>
+        [HttpDelete("deleteToyById")]
+        public ActionResult<ToyModel> DeleteToyById(int id)
+        {
+            var toy = _toyService.DeleteById(id);
+            if (toy == null)
+            {
+                return NotFound($"No toy found with ID {id}.");
+            }
+            return Ok(toy);
+        }
+
+        /// <summary>
+        /// Updates an existing toy with the specified ID.
+        /// </summary>
+        /// <param name="id">The unique ID of the toy to update.</param>
+        /// <param name="toy">The toy data to update with, including name, price, and category.</param>
+        /// <returns>The updated toy details.</returns>
+        /// <response code="200">Returns the updated toy details.</response>
+        /// <response code="400">The provided category ID is invalid or does not exist.</response>
+        /// <response code="404">No toy found with the specified ID.</response>
+        [HttpPut("updateToy/{id}")]
+        public ActionResult<ToyModel> UpdateToy([FromBody] ToyModel toy, int id)
+        {
+            if (!CategoriesDataHelper.CategoryExists(toy.CategoryID))
+            {
+                return BadRequest($"Invalid category ID {toy.CategoryID}. Please provide a valid category.");
+            }
+
+            var updatedToy = _toyService.Upsert(toy, id);
+            if (updatedToy == null)
+            {
+                return NotFound($"No toy found with ID {id}.");
+            }
+            return Ok(updatedToy);
+        }
+
+        /// <summary>
+        /// Creates a new toy in the store.
+        /// </summary>
+        /// <param name="toy">The toy data to create, including name, price, and category.</param>
+        /// <returns>The created toy details.</returns>
+        /// <response code="200">Returns the created toy details.</response>
+        /// <response code="400">The provided category ID is invalid or does not exist.</response>
+        [HttpPost("createToy")]
+        public ActionResult<ToyModel> CreateToy([FromBody] ToyModel toy)
+        {
+            if (!CategoriesDataHelper.CategoryExists(toy.CategoryID))
+            {
+                return BadRequest($"Invalid category ID {toy.CategoryID}. Please provide a valid category.");
+            }
+
+            var insertedToy = _toyService.Upsert(toy);
+
+            return Ok(insertedToy);
+        }
+
     }
 }
