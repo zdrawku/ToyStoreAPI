@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ToyStoreAPI.Data;
+using ToyStoreAPI.Helpers;
 using ToyStoreAPI.Models;
 
 namespace ToyStoreAPI.Controllers
@@ -35,7 +35,7 @@ namespace ToyStoreAPI.Controllers
         [HttpGet("categories")]
         public ActionResult<IEnumerable<CategoryModel>> GetAllCategories()
         {
-            var categories =CategoriesDataHelper.GetCategories();
+            var categories =CategoriesHelper.GetCategories();
 
             return Ok(categories);
         }
@@ -155,7 +155,7 @@ namespace ToyStoreAPI.Controllers
         [HttpPut("updateToy/{id}")]
         public ActionResult<ToyModel> UpdateToy([FromBody] ToyModel toy, int id)
         {
-            if (!CategoriesDataHelper.CategoryExists(toy.CategoryID))
+            if (!CategoriesHelper.CategoryExists(toy.CategoryID))
             {
                 return BadRequest($"Invalid category ID {toy.CategoryID}. Please provide a valid category.");
             }
@@ -178,7 +178,7 @@ namespace ToyStoreAPI.Controllers
         [HttpPost("createToy")]
         public ActionResult<ToyModel> CreateToy([FromBody] ToyModel toy)
         {
-            if (!CategoriesDataHelper.CategoryExists(toy.CategoryID))
+            if (!CategoriesHelper.CategoryExists(toy.CategoryID))
             {
                 return BadRequest($"Invalid category ID {toy.CategoryID}. Please provide a valid category.");
             }

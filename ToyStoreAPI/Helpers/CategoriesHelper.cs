@@ -1,8 +1,8 @@
 ﻿using ToyStoreAPI.Models;
 
-namespace ToyStoreAPI.Data
+namespace ToyStoreAPI.Helpers
 {
-    public class CategoriesDataHelper
+    public class CategoriesHelper
     {
         public static List<CategoryModel> GetCategories()
         {
