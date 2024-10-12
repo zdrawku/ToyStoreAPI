@@ -1,5 +1,7 @@
 # Toy Store API
 
+https://toystoreapi.appbuilder.dev/swagger/index.html
+
 This **Toy Store API** is a RESTful Web API built with **ASP.NET Core** to manage a collection of toys for a fictional toy store. The API allows users to view, search, and filter toys by various criteria like category, price range, name, and ID. The project demonstrates routing, service-based architecture, Swagger for API documentation, and simple data handling with JSON files.
 
 ## Features
