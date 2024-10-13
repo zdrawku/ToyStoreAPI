@@ -152,18 +152,18 @@ namespace ToyStoreAPI.Controllers
         /// <response code="200">Returns the updated toy details.</response>
         /// <response code="400">The provided category ID is invalid or does not exist.</response>
         /// <response code="404">No toy found with the specified ID.</response>
-        [HttpPut("updateToy/{id}")]
-        public ActionResult<ToyModel> UpdateToy([FromBody] ToyModel toy, int id)
+        [HttpPut("updateToy")]
+        public ActionResult<ToyModel> UpdateToy([FromBody] ToyModel toy)
         {
             if (!CategoriesHelper.CategoryExists(toy.CategoryID))
             {
                 return BadRequest($"Invalid category ID {toy.CategoryID}. Please provide a valid category.");
             }
 
-            var updatedToy = _toyService.Upsert(toy, id);
+            var updatedToy = _toyService.Update(toy);
             if (updatedToy == null)
             {
-                return NotFound($"No toy found with ID {id}.");
+                return NotFound($"No toy found with ID {toy.Id}.");
             }
             return Ok(updatedToy);
         }
@@ -183,7 +183,7 @@ namespace ToyStoreAPI.Controllers
                 return BadRequest($"Invalid category ID {toy.CategoryID}. Please provide a valid category.");
             }
 
-            var insertedToy = _toyService.Upsert(toy);
+            var insertedToy = _toyService.Create(toy);
 
             return Ok(insertedToy);
         }

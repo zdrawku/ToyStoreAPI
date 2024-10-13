@@ -16,7 +16,7 @@ namespace ToyStoreAPI.Data
         {
             modelBuilder.Entity<ToyModel>()
                .Property(a => a.Id)
-               .HasValueGenerator((_, __) => new IdentityColumnGenerator(101));
+               .HasValueGenerator((_, __) => new IdentityColumnGenerator(501));
         }
     }
 }
