@@ -108,20 +108,57 @@ namespace ToyStoreAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieves toys that contain the specified name (or part of it).
+        /// Retrieves toys that contain the specified name (or part of it). If no name is provided or no matches are found, all toys are returned.
         /// </summary>
-        /// <param name="name">The name or part of the toy's name to search for.</param>
-        /// <returns>List of toys matching the name criteria.</returns>
-        /// <response code="200">Returns the list of toys matching the name.</response>
-        /// <response code="404">No toys found with the specified name.</response>
+        /// <param name="name">The optional name or part of the toy's name to search for.</param>
+        /// <returns>List of toys matching the name criteria, or all toys if no name is provided or no matches are found.</returns>
+        /// <response code="200">Returns the list of toys matching the name, or all toys if no name is provided or no matches are found.</response>
         [HttpGet("getToyByName")]
-        public ActionResult<IEnumerable<ToyModel>> GetToysByName([FromQuery] string name)
+        public ActionResult<IEnumerable<ToyModel>> GetToysByName([FromQuery] string? name)
         {
-            var toys = _toyService.GetToysByName(name);
+            // Fetch toys based on the provided name
+            var toys = string.IsNullOrWhiteSpace(name)
+                ? _toyService.GetAllToys()
+                : _toyService.GetToysByName(name);
+
+            // If no matches found, return all toys instead of returning 404
             if (toys == null || !toys.Any())
             {
-                return NotFound($"No toys found with the name containing '{name}'.");
+                toys = _toyService.GetAllToys(); // Return all toys if no match is found
             }
+
+            return Ok(toys);
+        }
+
+        /// <summary>
+        /// Retrieves toys within the specified price range. If no min or max price is provided, or no matches are found, all toys are returned.
+        /// </summary>
+        /// <param name="minPrice">The optional minimum price to filter the toys.</param>
+        /// <param name="maxPrice">The optional maximum price to filter the toys.</param>
+        /// <returns>List of toys that fall within the price range, or all toys if no price range is specified or no matches are found.</returns>
+        /// <response code="200">Returns the list of toys within the price range, or all toys if no price range is specified or no matches are found.</response>
+        [HttpGet("getToysByPriceRange")]
+        public ActionResult<IEnumerable<ToyModel>> GetToysByPriceRange([FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice)
+        {
+            IEnumerable<ToyModel> toys;
+
+            // If both minPrice and maxPrice are null, return all toys
+            if (!minPrice.HasValue && !maxPrice.HasValue)
+            {
+                toys = _toyService.GetAllToys();
+            }
+            else
+            {
+                // Filter toys based on the provided price range
+                toys = _toyService.GetToysByPriceRange(minPrice, maxPrice);
+
+                // If no matches are found, return all toys
+                if (toys == null || !toys.Any())
+                {
+                    toys = _toyService.GetAllToys();
+                }
+            }
+
             return Ok(toys);
         }
 

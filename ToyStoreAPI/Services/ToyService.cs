@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ToyStoreAPI.Data;
 using ToyStoreAPI.Models;
 
@@ -34,6 +35,23 @@ public class ToyService
     public IEnumerable<ToyModel> GetToysByName(string name)
     {
         return _dbContext.Toys.Where(toy => toy.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public IEnumerable<ToyModel> GetToysByPriceRange(decimal? minPrice, decimal? maxPrice)
+    {
+        var toys = _dbContext.Toys.AsQueryable();
+
+        if (minPrice.HasValue)
+        {
+            toys = toys.Where(t => t.Price >= minPrice.Value);
+        }
+
+        if (maxPrice.HasValue)
+        {
+            toys = toys.Where(t => t.Price <= maxPrice.Value);
+        }
+
+        return toys.ToList();
     }
 
     public ToyModel DeleteById(int id)
